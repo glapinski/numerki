@@ -11,9 +11,7 @@ def sort_to_triangle(matrix):
         if abs(matrix[i][i]) < eps:
             for j in range(i + 1, len(matrix)):
                 if abs(matrix[j][i]) > eps:
-                    print(matrix)
                     switch_rows(matrix, i, j)
-                    print(matrix)
 
 
 def elimination(matrix):
@@ -30,7 +28,6 @@ def elimination(matrix):
 
 
 def find(matrix):
-    X = []
     X = [0 for i in range(len(matrix))]
     for i in range(len(matrix) - 1, -1, -1):
         if abs(matrix[i][i]) < eps:
