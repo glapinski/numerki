@@ -6,15 +6,11 @@ def quadratic_function(x: float) -> float:
 
 
 def trigonometric_function(x: float) -> float:
-    return np.sin(x)
+    return np.cos(x) * (x + 8)
 
 
-def logarithmic_function(x: float) -> float:
-    return np.log(x + 3)
-
-
-def mixed_function(x: float) -> float:
-    return np.log(x + 2) - x ** 2 - np.sin(x)
+def random_function(x: float) -> float:
+    return x / (x + 1)
 
 
 def function_value(x: float, flag: str) -> float:
@@ -23,6 +19,4 @@ def function_value(x: float, flag: str) -> float:
     elif flag == '2':
         return trigonometric_function(x)
     elif flag == '3':
-        return logarithmic_function(x)
-    elif flag == '4':
-        return mixed_function(x)
+        return random_function(x)

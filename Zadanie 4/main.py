@@ -3,11 +3,10 @@ import gaussian_legendre as gl
 
 def main():
     chosen_function = input("Wybierz funkcje:\n"
-                            "1 - Kwadratowa: x^2 - 3x + 3\n"
-                            "2 - Trygonometryczna: sin(x)\n"
-                            "3 - Logarytmiczna: log(x + 3)\n"
-                            "4 - Złożona: log(x+2) - x^2 - sin(x): ")
-    while not (chosen_function.isdigit() or '1' <= chosen_function <= '4'):
+                            "1 - x^2 - 3x + 3\n"
+                            "2 - cos(x) * (x + 8)\n"
+                            "3 - x / (x + 1)\n")
+    while not (chosen_function.isdigit() or '1' <= chosen_function <= '3'):
         chosen_function = input("Niepoprawny wybor, spróbuj ponownie: ")
     input_a = float(input("Podaj poczatek przedziału a: "))
     input_b = float(input("Podaj koniec przedzialu b: "))
@@ -19,7 +18,7 @@ def main():
     iterations = 1
     previous_result_nc = 0
     result_nc = nc.newton_cotes_quadrature(input_a, input_b, chosen_function, iterations)
-    while result_nc - previous_result_nc > input_epsilon:
+    while abs(previous_result_nc - result_nc) > input_epsilon:
         iterations += 1
         previous_result_nc = result_nc
         result_nc = nc.newton_cotes_quadrature(input_a, input_b, chosen_function, iterations)
