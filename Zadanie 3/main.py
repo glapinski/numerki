@@ -32,7 +32,11 @@ def main():
     i_values = []
     f.interpolation(a, b, file_arguments, calculated_file_values, len(file_arguments), i_arguments, i_values)
     g.graph(a, b, arguments, values, file_arguments, calculated_file_values, i_arguments, i_values)
-
+    index = 0
+    for i in i_arguments:
+        if i_arguments == 0.0:
+            index = i
+    print(i_values[index])
 
 if __name__ == '__main__':
     main()
