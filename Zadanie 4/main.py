@@ -1,7 +1,6 @@
 import newton_cotes as nc
 import gaussian_legendre as gl
 
-
 def main():
     chosen_function = input("Wybierz funkcje:\n"
                             "1 - x^2 - 3x + 3\n"
