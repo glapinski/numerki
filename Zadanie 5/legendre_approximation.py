@@ -18,7 +18,7 @@ gaussian_legendre_factors = [
 ]
 
 
-def basic_function(x: float, k: int):
+def basic_function(x, k):
     p = [1, x]
     for i in range(2, k + 1):
         p.append(((2 * (i - 1) + 1) / i * x * p[i - 1] - (i - 1) / i * p[i - 2]))
@@ -34,12 +34,12 @@ def calculate_numerator_for_coefficient(flag: str, node_count: int, k: int) -> f
     return integral
 
 
-def calculate_approximation_error(flag: str, k: int, node_count: int) -> float:
+def calculate_approximation_error(flag: str, k: int, coefficients, node_count: int) -> float:
     integral = 0.
     for i in range(node_count):
         x = legendre_polynomials_solutions[node_count - 2][i]
         w = gaussian_legendre_factors[node_count - 2][i]
-        integral += w * (f.function_value(x, flag) - f.horner(x, list(reversed(get_approximation_coefficients(flag, node_count, k)))))**2
+        integral += w * (f.function_value(x, flag) - polynomial_value(k, x, coefficients))**2
     return integral
 
 
@@ -54,14 +54,8 @@ def get_approximation_coefficients(flag: str, node_count: int, k: int):
     return coefficients
 
 
-def wart_wielomian(k, x, tab_wsp):
-    """
-    :param k: -//-
-    :param x: -//-
-    :param tab_wsp: -//-
-    :return: wartość wielomianu aproksymującego dla argumentu x
-    """
+def polynomial_value(k, x, coefficients):
     poly = 0
     for i in range(k + 1):
-        poly += tab_wsp[i] * basic_function(i, x)
+        poly += coefficients[i] * basic_function(x, i)
     return poly

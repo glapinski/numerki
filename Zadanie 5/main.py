@@ -34,14 +34,18 @@ def main():
         while not approximation_error != 0.0:
             approximation_error = abs(float(input("Niepoprawna wartość. Spróbuj ponownie: ")))
         approximation_degree = 1
-        while not la.calculate_approximation_error(chosen_function, approximation_degree, legendre_nodes) < approximation_error:
+
+        while not la.calculate_approximation_error(chosen_function, approximation_degree,
+                                                   la.get_approximation_coefficients(chosen_function, legendre_nodes,
+                                                                                     approximation_degree),
+                                                   legendre_nodes) < approximation_error:
             approximation_degree += 1
 
     elif stop_condition == '2':
         chosen_degree = int(input("Podaj stopień wielomianu aproksymującego"))
         while not (chosen_degree >= 1):
             chosen_degree = int(input("Stopień wielomianu musi być liczbą całkowitą większą od 0! Spróbuj ponownie: "))
-    arguments = np.linspace(input_a, input_b, 300)
+    arguments = np.linspace(input_a, input_b, 1000)
     values = []
     approximation_values = []
     approximation_polynomial_coefficients = []
@@ -57,7 +61,8 @@ def main():
         approximation_values.append(f.horner(i, list(reversed(approximation_polynomial_coefficients))))
 
     plt.plot(arguments, values, label='Funkcja aproksymowana')
-    plt.plot(arguments, approximation_values, label='Aproksymacja', linestyle=":")
+    plt.plot(arguments, la.polynomial_value(degree, arguments, approximation_polynomial_coefficients),
+             label='Aproksymacja', linestyle=":")
     plt.xlabel('X')
     plt.ylabel('Y')
     plt.title("Funkcja aproksymowana: " + str(f.function_formula(chosen_function)))
@@ -67,8 +72,6 @@ def main():
     exponent = len(approximation_polynomial_coefficients) - 1
     polynomial_formula = ""
     for i in reversed(approximation_polynomial_coefficients):
-        if i == 0.0:
-            continue
         if i > 0.0 and exponent == len(approximation_polynomial_coefficients) - 1:
             polynomial_formula += str(i) + "x^" + str(exponent) + " "
         if i > 0.0 and exponent != len(approximation_polynomial_coefficients) - 1 and exponent != 0:
@@ -81,7 +84,7 @@ def main():
             polynomial_formula += "- " + str(i)
         exponent -= 1
     print(polynomial_formula)
-    print(f"Bład aproksymacji: {la.calculate_approximation_error(chosen_function, degree, legendre_nodes)}")
+    print(f"Bład aproksymacji: {la.calculate_approximation_error(chosen_function, degree, approximation_polynomial_coefficients, legendre_nodes)}")
     plt.show()
 
 
