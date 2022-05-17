@@ -2,7 +2,7 @@ import numpy as np
 
 
 def quadratic_function(x: float) -> float:
-    return x ** 2 - 3 * x + 3
+    return x * x - 3 * x + 3
 
 
 def trigonometric_function(x: float) -> float:
@@ -10,7 +10,7 @@ def trigonometric_function(x: float) -> float:
 
 
 def random_function(x: float) -> float:
-    return x / (x + 1)
+    return 1/(x*x)
 
 
 def function_value(x: float, flag: str) -> float:
