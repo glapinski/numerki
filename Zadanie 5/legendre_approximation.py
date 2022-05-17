@@ -34,12 +34,12 @@ def calculate_numerator_for_coefficient(flag: str, node_count: int, k: int) -> f
     return integral
 
 
-def calculate_approximation_error(flag: str, k: int, coefficients, node_count: int) -> float:
+def calculate_approximation_error(flag: str, k: int, node_count: int) -> float:
     integral = 0.
     for i in range(node_count):
         x = legendre_polynomials_solutions[node_count - 2][i]
         w = gaussian_legendre_factors[node_count - 2][i]
-        integral += w * (f.function_value(x, flag) - f.horner(x, get_approximation_coefficients(flag, node_count, k)))**2
+        integral += w * (f.function_value(x, flag) - f.horner(x, list(reversed(get_approximation_coefficients(flag, node_count, k)))))**2
     return integral
 
 

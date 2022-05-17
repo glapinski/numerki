@@ -34,13 +34,9 @@ def main():
         while not approximation_error != 0.0:
             approximation_error = abs(float(input("Niepoprawna wartość. Spróbuj ponownie: ")))
         approximation_degree = 1
-        is_done = False
-        while not is_done:
-            coefficients = la.get_approximation_coefficients(chosen_function, legendre_nodes, approximation_degree)
-            if la.calculate_approximation_error(chosen_function, approximation_degree, coefficients, legendre_nodes) < approximation_error:
-                is_done = True
-            else:
-                approximation_degree += 1
+        while not la.calculate_approximation_error(chosen_function, approximation_degree, legendre_nodes) < approximation_error:
+            approximation_degree += 1
+
     elif stop_condition == '2':
         chosen_degree = int(input("Podaj stopień wielomianu aproksymującego"))
         while not (chosen_degree >= 1):
@@ -85,7 +81,7 @@ def main():
             polynomial_formula += "- " + str(i)
         exponent -= 1
     print(polynomial_formula)
-    print(f"Bład aproksymacji: {la.calculate_approximation_error(chosen_function, degree, approximation_polynomial_coefficients, legendre_nodes)}")
+    print(f"Bład aproksymacji: {la.calculate_approximation_error(chosen_function, degree, legendre_nodes)}")
     plt.show()
 
 
